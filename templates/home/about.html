@@ -1,0 +1,153 @@
+{% block title %}
+{% endblock title %}
+
+{% load static %}
+{% block css %}
+    <!-- Daraz Template Css folders -->
+    <link href="{% static 'global_assets/css/icons/fontawesome/styles.min.css' %}" rel="stylesheet"
+          type="text/css">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'home_static/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'home_static/css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'home_static/css/animate.css' %}"/>
+    <link rel="stylesheet" href="{% static 'home_static/css/style.css' %}"/>
+
+
+    <!-- /Daraz Template Css folders -->
+{% endblock css %}
+
+{% block javascript %}
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZXJBVDf7R4JqmSpopVPoduIGWx1IwpBM"></script>
+    <script type="text/javascript" src="{% static 'home_static/js/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'home_static/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'home_static/js/plugins.js' %}"></script>
+    <script type="text/javascript" src="{% static 'home_static/js/home.js' %}"></script>
+
+{% endblock javascript %}
+{% block body %}
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container-fluid">
+
+        <section id="about" class="light">
+            <div class="container">
+                <a href="{% url 'home-index' %}">
+                    <button class="btn btn-light border my-2 ml-5 " type="button"><i class="fa fa-arrow-left"></i> Geri
+                        Dön
+                    </button>
+                </a>
+
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6 my-3">
+                            <div class="col-lg-12">
+                                {% if abouts.about_image %}
+                                    <a href="{{ abouts.about_image.url }}">
+                                        <img src="{{ abouts.about_image.url }} "
+                                             class="" style="height:500px;width: 90%"/></a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="section-content">
+                                <div class="about-content left animated" data-animate="fadeInLeft">
+                                    <div class="about-icon"><i class=""></i></div>
+                                    <div class="">
+                                        <h4>Kurumsal Çözümler</h4>
+                                        <hr>
+                                        <p>
+                                            {{ abouts.about_descriptions | safe | default_if_none:"" }}
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.row table-row -->
+            </div> <!-- /.container -->
+        </section>
+        <section id="contact" class="dark">
+            <header class="title">
+                <h2>İletişim</h2>
+            </header>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 animated" data-animate="fadeInLeft">
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Popüler Bağlantılar</h3>
+                                    <hr>
+                                    <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
+                                    <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
+                                    </p>
+                                    <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
+                                        Karnesi </a></p>
+                                    <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <h3>Hızlı Linkler</h3>
+                                    <hr>
+                                    <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
+                                    <p><a href="{% url 'home-about-views' %}">Hakkımızda</a></p>
+                                    <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6 animated" data-animate="fadeInRight">
+                        <h3>Adres Bilgileri</h3>
+                        <hr>
+                        <address>
+                            <span><i
+                                    class="fa fa-map-marker fa-lg"></i> {{ abouts.central_address | default_if_none:"" }}</span>
+                            <span><i
+                                    class="fa fa-phone fa-lg"></i> {{ abouts.central_phone | default_if_none:"" }}</span>
+                            <span><i class="fa fa-envelope-o fa-lg"></i> <a
+                                    href="{{ abouts.central_email | default_if_none:"" }}">{{ abouts.central_email | default_if_none:"" }}</a></span>
+
+                        </address>
+                        <div class="col-md-12">
+                            <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
+                                    class="fa fa-instagram fa-2x"></i></a>
+                            <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
+                                    class="fa fa-linkedin fa-2x"></i></a>
+                            <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
+                                    class="fa fa-twitter fa-2x"></i></a>
+                            <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
+                                    class="fa fa-chrome fa-2x"></i></a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p><a href="">2021 - Medfitech Eğitim Sağlık Teknoloji Bilişim Spor Yazılım Turizm ve
+                            Danışmanlık</a></p>
+                        <p><small>TÜM HAKLARI SAKLIDIR.</small></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /.container-fluid -->
+
+    <script type="text/javascript" src="{% static 'home_static/js/main.js' %}"></script>
+
+
+{% endblock body %}
