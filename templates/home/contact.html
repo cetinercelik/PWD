@@ -1,0 +1,258 @@
+{% extends '../core.html' %}
+{% block title %}
+    İletişim
+{% endblock title %}
+{% load static %}
+{% block body %}
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light text-dark">
+            <div class="header-inner">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="{% url 'home-index' %}">
+                            <span class="logo-default">Medfitech</span>
+                            <span class="logo-dark">Medfitech</span>
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+                    <!-- Search -->
+                    <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i
+                            class="icon-x"></i></a>
+                        <form class="search-form" action="search-results-page.html" method="get">
+                            <input class="form-control" name="q" type="text" placeholder="Type & Search..."/>
+                            <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
+                        </form>
+                    </div>
+                    <!-- end: search -->
+
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    <div id="mainMenu">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    <li><a href="{% url 'home-index' %}">Anasayfa</a></li>
+                                    <li class="dropdown"><a href="#">Kurumsal</a>
+                                        <ul class="dropdown-menu">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Yazılımlarımız</a>
+                                        <ul class="dropdown-menu">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="{% url 'home-about-views' %}">Hakkımızda</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="{% url 'home-contact' %}">İletişim</a>
+                                    </li>
+                                    {#                                    <li class="dropdown mega-menu-item"><a href="#">Blog</a></li>#}
+                                    {#                                    <li class="dropdown mega-menu-item"><a href="#">Shop</a></li>#}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Page content -->
+        <!-- Main content -->
+        <!-- Page header area -->
+        {% block page_header %}
+        {% endblock page_header %}
+        <!-- /page header area -->
+        <!-- Content area -->
+        {% block page_content %}
+            {% if homes %}
+                {% for hm in homes %}
+
+                    <!-- Page title -->
+                    <section class="no-padding">
+                        <!-- Google Map -->
+                        <div data-latitude="-37.817240" data-longitude="144.955826" data-style="light"
+                             data-info="Hello from &lt;br&gt; Inspiro Themes" data-height-lg="500" data-height-xs="400"
+                             data-height-sm="600">
+                            <iframe src="{{ hm.central_local_link | default_if_none:'' }}"
+                                    height="400px"></iframe>
+                        </div>
+                        <!-- end: Google Map -->
+                    </section>
+                    <!-- end: Page title -->
+                    <!-- CONTENT -->
+                    <section>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <div class="row m-t-40">
+                                        <div class="col-lg-12">
+                                            <address>
+                                                <strong>Merkez Ofis Adress Bilgileri</strong><br>
+                                                <i class="fas fa-map-marker mx-2"></i>{{ hm.central_address | default_if_none:'' }}<br>
+                                                <i class="fas fa-envelope-square mx-2"></i>{{ hm.mail | default_if_none:'' }}<br>
+                                                <i class="fas fa-phone mx-2"></i>{{ hm.central_phone | default_if_none:'' }}<br>
+
+                                            </address>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <address>
+                                                <strong>Şube Adress Bilgileri</strong><br>
+                                                <i class="fas fa-map-marker mx-2"></i>{{ hm.branch_adress | default_if_none:'' }}<br>
+                                                <i class="fas fa-envelope-square mx-2"></i>{{ hm.mail | default_if_none:'' }}<br>
+                                                <i class="fas fa-phone mx-2"></i>{{ hm.branch_phone | default_if_none:'' }}<br>
+
+                                            </address>
+                                        </div>
+                                    </div>
+                                    <div class="social-icons m-t-30 social-icons-colored">
+                                        <ul>
+                                            <li class="social-facebook"><a
+                                                    href="{{ hm.facebook | default_if_none:'' }}"><i
+                                                    class="fab fa-facebook-f"></i></a></li>
+                                            <li class="social-twitter"><a
+                                                    href="{{ hm.twitter | default_if_none:'' }}"><i
+                                                    class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li class="social-google"><a href="{{ hm.instagram | default_if_none:'' }}"><i
+                                                    class="fab fa-instagram"></i></a></li>
+                                            </li>
+                                            <li class="social-google"><a
+                                                    href="mailto:{{ hm.mail |default_if_none:'' }}"><i
+                                                    class="fas fa-envelope-square"></i></a></li>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <form method="post"
+                                          action="{% url 'contact-create' %}">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold">* Adınız:</label>
+                                                <input type="text" name="name_surname"
+                                                       class="form-control"
+                                                       value=""
+                                                       placeholder="adınızı giriniz">
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold">Email:</label>
+                                                <input type="email" name="mail"
+                                                       class="form-control"
+                                                       placeholder="email giriniz">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="subject">Konunuz</label>
+                                                <input type="text" name="subject"
+                                                       class="form-control"
+                                                       placeholder="Konuyu başlığınız...">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message">Mesajınız</label>
+                                            <textarea type="text" name="message" required rows="5"
+                                                      class="form-control required"
+                                                      placeholder="Enter your Message"></textarea>
+                                        </div>
+
+                                        <button class="btn btn-primary" type="submit" id="form-submit"><i
+                                                class="fa fa-paper-plane"></i>&nbsp;Send message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end: Content -->
+                {% endfor %}
+
+            {% endif %}
+        {% endblock page_content %}
+        <!-- /content area -->
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="widget">
+
+                                <div class="widget-title container">Medfitech</div>
+                                {#                                <img alt="" src="/static/home_static/images/logo-removebg-preview.png">#}
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Popüler Bağlantılar</div>
+                                        <ul class="list">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Hızlı Linkler</div>
+                                        <ul class="list">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; 2021 Medfitech - Tüm Hakları Saklıdır<a
+                            href="https://www.inspiro-media.com" target="_blank"
+                            rel="noopener"> </a></div>
+                </div>
+            </div>
+        </footer>
+        <!-- end: Footer -->
+        <!-- /main content -->
+        <!-- /page content -->
+    </div>
+    <a id="scrollTop"><i class="fas fa-chevron-up"></i><i class="fas fa-chevron-up"></i></a>
+{% endblock body %}

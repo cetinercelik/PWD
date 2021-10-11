@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block meta %}
+    {% endblock meta %}
+    <title>{% block title %} {% endblock title %}</title>
+    {% load static %}
+    <link href="{% static 'home_static/css/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'home_static/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'global_assets/css/icons/fontawesome/styles.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    {% block javascript %}
+    {% endblock javascript %}
+    <!-- /theme JS files -->
+    {% block css %}
+    {% endblock css %}
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+{% block body %}
+{% endblock body %}
+<script src="{% static 'global_assets/js/main/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'global_assets/js/main/jquery.min.js' %}"></script>
+<script src="{% static 'home_static/js/jquery.js' %}"></script>
+<script src="{% static 'home_static/js/plugins.js' %}"></script>
+<script src="{% static 'home_static/js/functions.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+{% extends './core.html' %}
+{% load static %}
+{% block body %}
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light">
+            <div class="header-inner">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="{% url 'home-index' %}">
+{#                              {% if homes %}#}
+{#                                {% for hms in homes %}#}
+{#                                    <img src="{{ hms.corporate_logo.url | default_if_none:'' }}">#}
+{#                                {% endfor %}#}
+{#                            {% endif %}#}
+                                                        <span class="logo-default">Medfitech</span>
+                                                        <span class="logo-dark">Medfitech</span>
+
+
+
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+                    <!-- Search -->
+                    <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i
+                            class="icon-x"></i></a>
+                        <form class="search-form" action="search-results-page.html" method="get">
+                            <input class="form-control" name="q" type="text" placeholder="Type & Search..."/>
+                            <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
+                        </form>
+                    </div>
+                    <!-- end: search -->
+
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    <div id="mainMenu">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    <li><a href="{% url 'home-index' %}">Anasayfa</a></li>
+                                    <li class="dropdown"><a href="#">Kurumsal</a>
+                                        <ul class="dropdown-menu">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Yazılımlarımız</a>
+                                        <ul class="dropdown-menu">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="{% url 'home-about-views' %}">Hakkımızda</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="{% url 'home-contact' %}">İletişim</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Page content -->
+        <!-- Main content -->
+        <!-- Page header area -->
+        {% block page_header %}
+        {% endblock page_header %}
+        <!-- /page header area -->
+        <!-- Content area -->
+        {% block page_content %}
+        {% endblock page_content %}
+        <!-- /content area -->
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="widget">
+
+                                <div class="widget-title container">Medfitech</div>
+                                {#                                <img alt="" src="/static/home_static/images/logo-removebg-preview.png">#}
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Popüler Bağlantılar</div>
+                                        <ul class="list">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+
+                                            {% endif %}
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Hızlı Linkler</div>
+                                        <ul class="list">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {#                                <div class="col-lg-4">#}
+                                {#                                    <div class="widget">#}
+                                {#                                        <div class="widget-title">İletişim</div>#}
+                                {#                                        <ul class="list">#}
+                                {#                                            {% if homes %}#}
+                                {#                                                {% for hms in  homes %}#}
+                                {#                                                    <p>#}
+                                {#                                                        <i class="fas fa-phone">{{ hms.central_phone | default_if_none:'' }}</i>#}
+                                {#                                                    </p>#}
+                                {#                                                    <p><i class="fas fa-map-marker-alt"></i>{{ hms.central_address }}</p>#}
+                                {#                                                    <p>#}
+                                {#                                                    <div class="align-center">#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.instagram | default_if_none:'' }}">#}
+                                {#                                                            <i class="fab fa-facebook-f"></i>#}
+                                {#                                                            <span>Facebook</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.twitter | default_if_none:'' }}"#}
+                                {#                                                           data-width="100">#}
+                                {#                                                            <i class="fab fa-twitter"></i>#}
+                                {#                                                            <span>Twitter</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.facebook | default_if_none:'' }}"#}
+                                {#                                                           data-width="118">#}
+                                {#                                                            <i class="fab fa-instagram"></i>#}
+                                {#                                                            <span>Instagram</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="mailto:{{ hms.mail | default_if_none:'' }}"#}
+                                {#                                                           data-width="80">#}
+                                {#                                                            <i class="fas fa-envelope-square"></i>#}
+                                {#                                                            <span>Mail</span>#}
+                                {#                                                        </a>#}
+                                {#                                                    </div>#}
+                                {#                                                    </p>#}
+                                {#                                                {% endfor %}#}
+                                {#                                            {% endif %}#}
+                                {##}
+                                {#                                        </ul>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; 2021 Medfitech - Tüm Hakları Saklıdır<a
+                            href="https://www.inspiro-media.com" target="_blank"
+                            rel="noopener"> </a></div>
+                </div>
+            </div>
+        </footer>
+        <!-- end: Footer -->
+        <!-- /main content -->
+        <!-- /page content -->
+    </div>
+    <a id="scrollTop"><i class="fas fa-chevron-up"></i><i class="fas fa-chevron-up"></i></a>
+{% endblock body %}

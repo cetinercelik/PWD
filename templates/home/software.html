@@ -1,458 +1,59 @@
+{% extends '../base.html' %}
 {% block title %}
+    {% if  software_filtres %}
+        {% for sft in  software_filtres %}
+            {{ sft.title | default_if_none:'' }}
+        {% endfor %}
+    {% endif %}
 {% endblock title %}
-
 {% load static %}
-{% block css %}
-    <!-- Daraz Template Css folders -->
-    <link href="{% static 'global_assets/css/icons/fontawesome/styles.min.css' %}" rel="stylesheet" type="text/css">
-
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{% static 'home_static/css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/font-awesome.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/animate.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/style.css' %}"/>
-    <!-- /Daraz Template Css folders -->
-{% endblock css %}
 
 {% block javascript %}
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZXJBVDf7R4JqmSpopVPoduIGWx1IwpBM"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/plugins.js' %}"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/home.js' %}"></script>
 
 {% endblock javascript %}
-{% block body %}
+
+{% block page_header %}
+
+{% endblock page_header %}
 
 
-    <div class="container-fluid">
+{% block page_content %}
+    {% if software_filtres %}
+        {% for sft in software_filtres %}
+            <!-- Page title -->
 
-        {% if learnbetters %}
-            <section id="about" class="light">
+            <!-- end: Page title -->
+                    <!-- Inspiro Slider -->
+        <div id="slider" class="inspiro-slider dots-creative" data-height-xs="360">
+            <!-- Slide 2 -->
+            <div class="slide kenburns" style="background-image:url('{{ sft.software_image.url | default_if_none:'' }}');">
+                <div class="bg-overlay"></div>
                 <div class="container">
-                    <a href="{% url 'home-index' %}">
-                        <button class="btn btn-light border my-2 ml-5 " type="button"><i class="fa fa-arrow-left"></i>
-                            Geri Dön
-                        </button>
-                    </a>
-                    <div class="row ">
-                        <div class="col-lg-6 my-3">
-                            <div class="col-lg-12">
-                                {% if learnbetters.learnbetter_image %}
-                                    <a href="{{ learnbetters.learnbetter_image.url }}">
-                                        <img src="{{ learnbetters.learnbetter_image.url }} "
-                                             class="" style="height:500px;width: 100%"/></a>
-                                {% endif %}
-                            </div>
+                    <div class="slide-captions text-center text-light">
+                        <!-- Captions -->
+                        <h2>{{ sft.title | default_if_none:'' }}</h2>
+                        <span class="strong"><a href="{{ sft.link | default_if_none:'' }}"><i class="fab fa-chrome"></i> Sitemizi Ziyaret Edin...</a></span>
 
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="section-content">
-                                <div class="about-content left animated" data-animate="fadeInLeft">
-                                    <div class="about-icon"><i class=""></i></div>
-                                    <div class="">
-                                        <h4>LearnBetter E-Öğrenme</h4>
-                                        <hr>
-                                        <p>
-                                            {{ learnbetters.learnbetter | safe | default_if_none:"" }}
-                                        </p>
-                                        <p>
-                                            <a href="{{ learnbetters.learnbetter_link | default_if_none:"" }}">{{ learnbetters.learnbetter_link_name | default_if_none:"" }}</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> <!-- /.row table-row -->
-                </div> <!-- /.container -->
-            </section>
-
-            <!-- Footer -->
-            <section id="contact" class="dark">
-                <header class="title">
-                    <h2>İletişim</h2>
-                </header>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 animated" data-animate="fadeInLeft">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Popüler Bağlantılar</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
-                                        <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
-                                        </p>
-                                        <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
-                                            Karnesi </a></p>
-                                        <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3>Hızlı Linkler</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
-                                        <p><a href="#">Hakkımızda</a></p>
-                                        <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-6 animated" data-animate="fadeInRight">
-                            <h3>Adres Bilgileri</h3>
-                            <hr>
-                            <address>
-                                <span><i
-                                        class="fa fa-map-marker fa-lg"></i> {{ learnbetters.central_address }}</span>
-                                <span><i class="fa fa-phone fa-lg"></i> {{ learnbetters.central_phone }}</span>
-                                <span><i class="fa fa-envelope-o fa-lg"></i> <a
-                                        href="{{ learnbetters.central_email }}">{{ learnbetters.central_email }}</a></span>
-
-                            </address>
-                            <div class="col-md-12">
-                                <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
-                                        class="fa fa-instagram fa-2x"></i></a>
-                                <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
-                                        class="fa fa-linkedin fa-2x"></i></a>
-                                <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
-                                        class="fa fa-twitter fa-2x"></i></a>
-                                <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
-                                        class="fa fa-chrome fa-2x"></i></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-        {% elif eudaimonias %}
-            <section id="about" class="light">
-                <div class="container">
-                    <a href="{% url 'home-index' %}">
-                        <button class="btn btn-light border my-2 ml-5 " type="button"><i class="fa fa-arrow-left"></i>
-                            Geri Dön
-                        </button>
-                    </a>
-
-                    <div class="row ">
-                        <div class="col-lg-6 my-3">
-                            <div class="col-lg-12">
-                                {% if eudaimonias.eudaimonia_image %}
-                                    <a href="{{ eudaimonias.eudaimonia_image.url }}">
-                                        <img src="{{ eudaimonias.eudaimonia_image.url }} "
-                                             class="" style="height:500px;width: 90%"/></a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="section-content">
-                                <div class="about-content left animated" data-animate="fadeInLeft">
-                                    <div class="about-icon"><i class=""></i></div>
-                                    <div class="">
-                                        <h4>Eudaimonia Health & Fitness</h4>
-                                        <hr>
-                                        <p>
-                                            {{ eudaimonias.eudaimonia | safe | default_if_none:"" }}
-                                        </p>
-                                        <p>
-                                            <a href="{{ eudaimonias.eudaimonia_link | default_if_none:"" }}">{{ eudaimonias.eudaimonia_link_name | default_if_none:"" }}</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> <!-- /.row table-row -->
-                </div> <!-- /.container -->
-            </section>
-            <!-- Footer -->
-            <section id="contact" class="dark">
-                <header class="title">
-                    <h2>İletişim</h2>
-                </header>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 animated" data-animate="fadeInLeft">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Popüler Bağlantılar</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
-                                        <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
-                                        </p>
-                                        <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
-                                            Karnesi </a></p>
-                                        <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3>Hızlı Linkler</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
-                                        <p><a href="{% url 'home-about-views' %}">Hakkımızda</a></p>
-                                        <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-6 animated" data-animate="fadeInRight">
-                            <h3>Adres Bilgileri</h3>
-                            <hr>
-                            <address>
-                                <span><i
-                                        class="fa fa-map-marker fa-lg"></i> {{ eudaimonias.central_address | default_if_none:"" }}</span>
-                                <span><i
-                                        class="fa fa-phone fa-lg"></i> {{ eudaimonias.central_phone | default_if_none:"" }}</span>
-                                <span><i class="fa fa-envelope-o fa-lg"></i> <a
-                                        href="{{ eudaimonias.central_email | default_if_none:"" }}">{{ eudaimonias.central_email | default_if_none:"" }}</a></span>
-
-                            </address>
-                            <div class="col-md-12">
-                                <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
-                                        class="fa fa-instagram fa-2x"></i></a>
-                                <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
-                                        class="fa fa-linkedin fa-2x"></i></a>
-                                <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
-                                        class="fa fa-twitter fa-2x"></i></a>
-                                <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
-                                        class="fa fa-chrome fa-2x"></i></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-        {% elif fitskills %}
-            <section id="about" class="light">
-                <div class="container">
-                    <a href="{% url 'home-index' %}">
-                        <button class="btn btn-light border my-2 ml-5 " type="button"><i class="fa fa-arrow-left"></i>
-                            Geri Dön
-                        </button>
-                    </a>
-
-                    <div class="row ">
-                        <div class="col-lg-6 my-3">
-                            <div class="col-lg-12">
-                                {% if fitskills.fitskill_image %}
-                                    <a href="{{ fitskills.fitskill_image.url }}">
-                                        <img src="{{ fitskills.fitskill_image.url }} "
-                                             class="" style="height:500px;width: 90%"/></a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="section-content">
-                                <div class="about-content left animated" data-animate="fadeInLeft">
-                                    <div class="about-icon"><i class=""></i></div>
-                                    <div class="">
-                                        <h4>FitSkill Sağlık & Yetenek Karnesi</h4>
-                                        <hr>
-                                        <p>
-                                            {{ fitskills.fitskill | safe | default_if_none:"" }}
-                                        </p>
-                                        <p>
-                                            <a href="{{ fitskills.fitskill_link | default_if_none:"" }}">{{ fitskills.fitskill_link_name | default_if_none:"" }}</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> <!-- /.row table-row -->
-                </div> <!-- /.container -->
-            </section>
-            <!-- Footer -->
-            <section id="contact" class="dark">
-                <header class="title">
-                    <h2>İletişim</h2>
-                </header>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 animated" data-animate="fadeInLeft">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Popüler Bağlantılar</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
-                                        <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
-                                        </p>
-                                        <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
-                                            Karnesi </a></p>
-                                        <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3>Hızlı Linkler</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
-                                        <p><a href="#">Hakkımızda</a></p>
-                                        <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-6 animated" data-animate="fadeInRight">
-                            <h3>Adres Bilgileri</h3>
-                            <hr>
-                            <address>
-                                <span><i
-                                        class="fa fa-map-marker fa-lg"></i> {{ fitskills.central_address | default_if_none:"" }}</span>
-                                <span><i
-                                        class="fa fa-phone fa-lg"></i> {{ fitskills.central_phone | default_if_none:"" }}</span>
-                                <span><i class="fa fa-envelope-o fa-lg"></i> <a
-                                        href="{{ fitskills.central_email | default_if_none:"" }}">{{ fitskills.central_email | default_if_none:"" }}</a></span>
-
-                            </address>
-                            <div class="col-md-12">
-                                <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
-                                        class="fa fa-instagram fa-2x"></i></a>
-                                <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
-                                        class="fa fa-linkedin fa-2x"></i></a>
-                                <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
-                                        class="fa fa-twitter fa-2x"></i></a>
-                                <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
-                                        class="fa fa-chrome fa-2x"></i></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-        {% elif fitness %}
-            <section id="about" class="light">
-                <div class="container">
-                    <a href="{% url 'home-index' %}">
-                        <button class="btn btn-light border my-2 ml-5 " type="button"><i class="fa fa-arrow-left"></i>
-                            Geri Dön
-                        </button>
-                    </a>
-
-                    <div class="row ">
-                        <div class="col-lg-6 my-3">
-                            <div class="col-lg-12">
-                                {% if fitness.fitness_image %}
-                                    <a href="{{ fitness.fitness_image.url }}">
-                                        <img src="{{ fitness.fitness_image.url }} "
-                                             class="" style="height:500px;width: 90%"/></a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="section-content">
-                                <div class="about-content left animated" data-animate="fadeInLeft">
-                                    <div class="about-icon"><i class=""></i></div>
-                                    <div class="">
-                                        <h4>Fitness Monitor</h4>
-                                        <p>
-                                            {{ fitness.fitness | safe | default_if_none:"" }}
-                                        </p>
-                                        <p>
-                                            <a href="{{ fitness.fitness_link | default_if_none:"" }}">{{ fitness.fitness_link_name | default_if_none:"" }}</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> <!-- /.row table-row -->
-                </div> <!-- /.container -->
-            </section>
-            <!-- Footer -->
-            <section id="contact" class="dark">
-                <header class="title">
-                    <h2>İletişim</h2>
-                </header>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 animated" data-animate="fadeInLeft">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Popüler Bağlantılar</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
-                                        <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
-                                        </p>
-                                        <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
-                                            Karnesi </a></p>
-                                        <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3>Hızlı Linkler</h3>
-                                        <hr>
-                                        <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
-                                        <p><a href="#">Hakkımızda</a></p>
-                                        <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-6 animated" data-animate="fadeInRight">
-                            <h3>Adres Bilgileri</h3>
-                            <hr>
-                            <address>
-                                <span><i
-                                        class="fa fa-map-marker fa-lg"></i> {{ fitness.central_address | default_if_none:"" }}</span>
-                                <span><i class="fa fa-phone fa-lg"></i> {{ fitness.central_phone | default_if_none:"" }}</span>
-                                <span><i class="fa fa-envelope-o fa-lg"></i> <a
-                                        href="{{ fitness.central_email | default_if_none:"" }}">{{ fitness.central_email | default_if_none:"" }}</a></span>
-
-                            </address>
-                            <div class="col-md-12">
-                                <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
-                                        class="fa fa-instagram fa-2x"></i></a>
-                                <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
-                                        class="fa fa-linkedin fa-2x"></i></a>
-                                <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
-                                        class="fa fa-twitter fa-2x"></i></a>
-                                <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
-                                        class="fa fa-chrome fa-2x"></i></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-        {% endif %}
-        <section id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p><a href="">2021 - Medfitech Eğitim Sağlık Teknoloji Bilişim Spor Yazılım Turizm ve
-                            Danışmanlık</a></p>
-                        <p><small>TÜM HAKLARI SAKLIDIR.</small></p>
+                        <!-- end: Captions -->
                     </div>
                 </div>
             </div>
-        </section>
+            <!-- end: Slide 2 -->
 
-    </div><!-- /.container-fluid -->
+        </div>
+        <!--end: Inspiro Slider -->
+            <!-- FULL WIDTH PAGE -->
+            <section>
+                <div class="container">
+                    <h2>{{ sft.title | default_if_none:'' }}</h2>
+                    <p>{{ sft.description |safe | default_if_none:'' }}</p>
+                </div>
+            </section>
+        {% endfor %}
 
-    <script type="text/javascript" src="{% static 'home_static/js/main.js' %}"></script>
+    {% endif %}
 
 
-{% endblock body %}
+    <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
+    <!-- end: FULL WIDTH PAGE -->
+{% endblock page_content %}

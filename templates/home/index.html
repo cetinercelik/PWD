@@ -1,352 +1,216 @@
+{% extends '../base.html' %}
 {% block title %}
+    Anasayfa
 {% endblock title %}
-
 {% load static %}
-{% block css %}
-    <!-- Daraz Template Css folders -->
-    <link href="{% static 'global_assets/css/icons/fontawesome/styles.min.css' %}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{% static 'home_static/css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/font-awesome.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/animate.css' %}"/>
-    <link rel="stylesheet" href="{% static 'home_static/css/style.css' %}"/>
-    <!-- /Daraz Template Css folders -->
-{% endblock css %}
 
 {% block javascript %}
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZXJBVDf7R4JqmSpopVPoduIGWx1IwpBM"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'home_static/js/plugins.js' %}"></script>
 
 {% endblock javascript %}
-{% block body %}
-    <div class="svg-wrap">
-        <svg width="64" height="64" viewBox="0 0 64 64">
-            <path id="arrow-left"
-                  d="M26.667 10.667q1.104 0 1.885 0.781t0.781 1.885q0 1.125-0.792 1.896l-14.104 14.104h41.563q1.104 0 1.885 0.781t0.781 1.885-0.781 1.885-1.885 0.781h-41.563l14.104 14.104q0.792 0.771 0.792 1.896 0 1.104-0.781 1.885t-1.885 0.781q-1.125 0-1.896-0.771l-18.667-18.667q-0.771-0.813-0.771-1.896t0.771-1.896l18.667-18.667q0.792-0.771 1.896-0.771z"></path>
-        </svg>
 
-        <svg width="64" height="64" viewBox="0 0 64 64">
-            <path id="arrow-right"
-                  d="M37.333 10.667q1.125 0 1.896 0.771l18.667 18.667q0.771 0.771 0.771 1.896t-0.771 1.896l-18.667 18.667q-0.771 0.771-1.896 0.771-1.146 0-1.906-0.76t-0.76-1.906q0-1.125 0.771-1.896l14.125-14.104h-41.563q-1.104 0-1.885-0.781t-0.781-1.885 0.781-1.885 1.885-0.781h41.563l-14.125-14.104q-0.771-0.771-0.771-1.896 0-1.146 0.76-1.906t1.906-0.76z"></path>
-        </svg>
-    </div>
+{% block page_header %}
+
+{% endblock page_header %}
 
 
-    <!-- MAIN CONTENT -->
-
-    <div class="container-fluid">
-        <!-- HEADER -->
-        <section id="header">
-            <!-- NAVIGATION -->
-            <nav class="navbar navbar-fixed-top navbar-default bottom">
+{% block page_content %}
+    <!-- Corporate Table -->
+    <!-- Inspiro Slider -->
+    <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-fade="true">
+        {% if  sliders %}
+            {% for sld in sliders %}
+                <!-- Slide 1 -->
+                <div class="slide kenburns"
+                     data-bg-image="{{ sld.image.url | default_if_none:'/static/home_static/images/parallax/29.jpg' }}">
+                    <div class="bg-overlay"></div>
+                    <div class="container">
+                        <div class="slide-captions text-center text-light">
+                            <!-- Captions -->
+                            <h1 data-caption-animate="zoom-out">{{ sld.main_title | default_if_none:'' }}</h1>
+                            <p>{{ sld.sub_title | default_if_none:'' }}</p>
+                            </span>
+                            <!-- end: Captions -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end: Slide 1 -->
+            {% endfor %}
+        {% elif sliders is None %}
+            <!-- Slide 2 -->
+            <div class="slide" data-bg-video="/static/home_static/video/pexels-waves.mp4">
+                <div class="bg-overlay"></div>
                 <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#menu">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#header">FITWARETECH</a>
-                    </div><!-- /.navbar-header -->
-
-                    <div class="collapse navbar-collapse" id="menu">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#header">Anasayfa</a></li>
-                            <li><a href="#about">Kurumsal</a></li>
-                            <li><a href="#portfolio">Yazılımlarımız</a></li>
-                            <li><a href="{% url 'home-about-views' %}">Hakkımızda</a></li>
-                            {#                            <li><a href="#info"></a></li>#}
-                            <li><a href="#contact">İletişim</a></li>
-
-                        </ul>
-
-                    </div> <!-- /.navbar-collapse -->
-                </div> <!-- /.container -->
-            </nav>
-
-            <!-- SLIDER -->
-            <div class="header-slide">
-                <section>
-                    <div id="loader" class="pageload-overlay"
-                         data-opening="M 0,0 0,60 80,60 80,0 z M 80,0 40,30 0,60 40,30 z">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60"
-                             preserveAspectRatio="none">
-                            <path d="M 0,0 0,60 80,60 80,0 Z M 80,0 80,60 0,60 0,0 Z"/>
-                        </svg>
-                    </div> <!-- /.pageload-overlay -->
-
-                    <div class="image-slide bg-fixed">
-                        <div class="overlay">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-
-                                        <div class="slider-content">
-                                            <h1></h1>
-                                            <p>{{ home_forms.title_slider_descriptions | safe  | default_if_none:"" }}</p>
-                                            {% if home_forms.corporate_logo %}
-                                                <a href="{{ home_forms.corporate_logo.url }}">
-                                                    <img src="{{ home_forms.corporate_logo.url }} "
-                                                         class="" style=""/></a>
-                                            {% endif %}
-                                        </div>
-
-                                    </div> <!-- /.col-md-12 -->
-                                </div> <!-- /.row -->
-                            </div> <!-- /.container -->
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.image-slide -->
-
-                    <nav class="nav-slide">
-                        <a class="prev" href="#prev">
-                              <span class="icon-wrap">
-                                <svg class="icon" width="32" height="32" viewBox="0 0 64 64">
-                                    <use xlink:href="#arrow-left"></use>
-                                </svg>
-                              </span>
-                            <div>
-                                <span>Önceki Fotoğraf</span>
-                                <h3>...</h3>
-                                <p>...</p>
-                                <img alt="Previous thumb">
-                            </div>
-                        </a>
-                        <a class="next" href="#next">
-              <span class="icon-wrap">
-                <svg class="icon" width="32" height="32" viewBox="0 0 64 64">
-                    <use xlink:href="#arrow-right"></use>
-                </svg>
-              </span>
-                            <div>
-                                <span>Sonraki Fotoğraf</span>
-                                <h3>...</h3>
-                                <p>...</p>
-                                <img alt="Next thumb">
-                            </div>
-                        </a>
-                    </nav>
-                </section>
-
-                <script type="text/javascript">
-                    var dataHeader = [
-                            {% for img in images_data %}
-                                {
-                                    bigImage: "{{ img.image.url | default_if_none:""  }}",
-                                    title: "{{ img.title | default_if_none:"" }}",
-
-                                },
-                            {% endfor %}
-
-                        ],
-                        loaderSVG = new SVGLoader(document.getElementById('loader'), {
-                            speedIn: 800,
-                            speedOut: 800,
-                            easingOut: mina.bounce
-                        });
-                    loaderSVG.show()
-                </script>
-
-            </div><!-- /.header-slide -->
-        </section>
-        <!-- HEADER END -->
-        <!-- ABOUT -->
-        <section id="about" class="light">
-            <header class="title">
-                <h2>Kurumsal <span></span></h2>
-                <p>{{ home_forms.corporate_descriptions | safe  | default_if_none:"" }}</p>
-            </header>
-
-            <div class="container">
-                <div class="row table-row">
-                    <div class="col-sm-6 hidden-xs">
-                        <div class="section-content">
-                            <div class="big-image col-md-12"
-                                 style="background-image:url({{ home_forms.corporate_home_image.url }})"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="section-content">
-                            <div class="about-content left animated" data-animate="fadeInLeft">
-                                <div class="about-icon"><i class="fa fa-asterisk"></i></div>
-                                <div class="about-detail">
-                                    <h4>Kurucu</h4>
-                                    <p>
-                                        {{ home_forms.founder | safe | truncatewords:15  | default_if_none:"" }}
-                                        <a href="{% url 'home-founder-views' %}">Daha Fazlası...</a></p>
-                                </div>
-                            </div>
-
-                            <div class="about-content left animated" data-animate="fadeInLeft">
-                                <div class="about-icon"><i class="fa fa-align-center"></i></div>
-                                <div class="about-detail">
-                                    <h4>Felsefe</h4>
-                                    <p>{{ home_forms.philosophy | safe | truncatewords:15  | default_if_none:"" }}
-                                        <a href="{% url 'home-philosophy-views' %}">Daha Fazlası...</a></p>
-                                </div>
-                            </div>
-
-                            <div class="about-content left animated" data-animate="fadeInLeft">
-                                <div class="about-icon"><i class="fa fa-cube"></i></div>
-                                <div class="about-detail">
-                                    <h4>Kurumsal Çözümler</h4>
-                                    <p>
-                                    <p>{{ home_forms.corporate_solve | safe | truncatewords:15  | default_if_none:"" }}
-                                        <a href="{% url 'home-corporate-solve-views' %}">Daha Fazlası...</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- /.row table-row -->
-            </div> <!-- /.container -->
-        </section>
-        <!-- PORTFOLIO -->
-
-        <section id="portfolio" class="light">
-            <header class="title">
-                <h2>Yazılımlarımız</h2>
-                <p>{{ home_forms.corporate_descriptions | safe | default_if_none:"" }}</p>
-            </header>
-
-            <div class="container-fluid">
-                <div class="row">
-                    <ul id="filters" class="list-inline">
-                        <li data-filter="all" class="filter">Tümü</li>
-                        <li data-filter=".branding" class="filter">LearnBetter</li>
-                        <li data-filter=".graphic" class="filter">Eudaimonia</li>
-                        <li data-filter=".printing" class="filter">FitSkill</li>
-                        <li data-filter=".video" class="filter">Fitness</li>
-                    </ul>
-                </div>
-
-                <div class="row">
-                    <div class="container-portfolio">
-                        <!-- PORTFOLIO OBJECT -->
-                        <script type="text/javascript">
-                            var portfolio = [
-                                {
-                                    category: "branding",
-                                    image: "{{ home_forms.learnbetter_image.url | default_if_none:""}}",
-                                    title: "LearnBetter",
-                                    link: "{% url 'home-learnbetter-views'%}",
-                                    text: "LearnBetter E-Öğrenme"
-                                },
-                                {
-                                    category: "graphic",
-                                    image: "{{ home_forms.eudaimonia_image.url | default_if_none:""}}",
-                                    title: "Eudaimonia",
-                                    link: "{% url 'home-eudaimonia-views'%}",
-                                    text: "Eudaimonia Health & Fitness"
-                                },
-
-                                {
-                                    category: "video",
-                                    image: "{{ home_forms.fitskill_image.url | default_if_none:""}}",
-                                    title: "FitSkill",
-                                    link: "{% url 'home-fitskill-views'%}",
-                                    text: "FitSkill Sağlık & Yetenek Karnesi."
-                                },
-
-                                {
-                                    category: "printing",
-                                    image: "{{ home_forms.fitness_image.url | default_if_none:"" }}",
-                                    title: "Fitness",
-                                    link: "{% url 'home-fitness-views'%}",
-                                    text: "Fitness Monitor."
-                                },
-
-                            ];
-                        </script>
+                    <div class="slide-captions text-start text-light">
+                        <!-- Captions -->
+                        <h1>220+ Laytout Demos</h1>
+                        <p class="text-small">POLO is packed with 220+ pre-made layouts that allow you to quickly
+                            jumpstart
+                            your project. Completely customizable for creating your own designs.</p>
+                        <!-- end: Captions -->
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- TEAM -->
-        <section id="team" class="light">
+            <!-- end: Slide 2 -->
+        {% endif %}
+    </div>
+    <!--end: Inspiro Slider -->
+    <!-- WELCOME -->
 
-        </section>
-        <!-- INFO -->
+    <!-- end: WELCOME -->
+    <!-- WHAT WE DO -->
+    <section class="background-grey">
+        <div class="container">
 
-        <!-- FOOTER CONTACT -->
-        <section id="contact" class="dark">
-            <header class="title">
-                <h2>İletişim</h2>
-            </header>
+            <div class="heading-text heading-section">
+                <h2>KURUMSAL</h2>
+                {% for hm in homes %}
+                    <span class="lead">{{ hm.corporate_main_title | safe  | default_if_none:"" }}</span>
+                {% endfor %}
+            </div>
+            <div class="row">
+                {% if  corporates %}
+                    {% for cp in  corporates %}
+                        <div class="col-lg-4">
+                            <div data-animate="animate__fadeInUp" data-animate-delay="0">
+                                <h4>{{ cp.front_title | default_if_none:"" }}</h4>
+                                <p>{{ cp.corporate_description | safe | truncatewords:10  | default_if_none:"" }}</p>
+                            </div>
+                            <div><a href="{% url 'home-corporate' id=cp.id %}" class="btn btn-primary scroll-to">Daha
+                                Fazlası</a></div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 animated" data-animate="fadeInLeft">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Popüler Bağlantılar</h3>
-                                    <hr>
-                                    <p><a href="{% url 'home-learnbetter-views' %}">LearnBetter E-Öğrenme</a></p>
-                                    <p><a href="{% url 'home-eudaimonia-views' %}">Eudaimonia Health & Fitness </a>
-                                    </p>
-                                    <p><a href="{% url 'home-fitskill-views' %}">FitSkill Sağlık & Yetenek
-                                        Karnesi </a></p>
-                                    <p><a href="{% url 'home-fitness-views' %}">Fitness Monitor</a></p>
+        </div>
+    </section>
+    <!-- END WHAT WE DO -->
+    <!-- PORTFOLIO -->
+    <section class="p-b-0">
+        <div class="container">
+            <div class="heading-text heading-section">
+                <h2>YAZILIMLARIMIZ</h2>
+                {% for sfhm in homes %}
+                    <span class="lead">{{ sfhm.software_main_title | default_if_none:'' }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="portfolio">
+            <!-- Portfolio Items -->
+            <div id="portfolio" class="grid-layout portfolio-4-columns" data-margin="0">
+                <!-- portfolio item -->
+                {% if softwares %}
+                    {% for sft in softwares %}
+                        <div class="portfolio-item img-zoom ct-marketing ct-media ct-branding ct-marketing ct-webdesign">
+                            <div class="portfolio-item-wrap">
+                                <div class="portfolio-image">
+                                    <a href="{% url 'home-software' id=sft.id %}"><img
+                                            src="{{ sft.software_image.url | default_if_none:'' }}" alt=""></a>
                                 </div>
-                                <div class="col-md-12">
-                                    <h3>Hızlı Linkler</h3>
-                                    <hr>
-                                    <p><a href="{% url 'home-index' %}">Anasayfa</a></p>
-                                    <p><a href="{% url 'home-about-views' %}">Hakkımızda</a></p>
-                                    <p><a href="{% url 'home-philosophy-views' %}">Felsefe</a></p>
-
+                                <div class="portfolio-description">
+                                    <a href="{% url 'home-software' id=sft.id %}">
+                                        <h3>{{ sft.title | default_if_none:'' }}</h3>
+                                    </a>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-
-                    <div class="col-md-6 animated" data-animate="fadeInRight">
-                        <h3>Adres Bilgileri</h3>
-                        <hr>
-                        <address>
-                                <span><i
-                                        class="fa fa-map-marker fa-lg"></i> {{ home_forms.central_address | default_if_none:"" }}</span>
-                            <span><i class="fa fa-phone fa-lg"></i> {{ home_forms.central_phone | default_if_none:"" }}</span>
-                            <span><i class="fa fa-envelope-o fa-lg"></i> <a
-                                    href="{{ home_forms.central_email | default_if_none:"" }}">{{ home_forms.central_email | default_if_none:"" }}</a></span>
-
-                        </address>
-                        <div class="col-md-12">
-                            <a href="https://www.instagram.com/eminkafkas/" class="mx-2"><i
-                                    class="fa fa-instagram fa-2x"></i></a>
-                            <a href="https://www.linkedin.com/in/muhammed-eminkafkas-0050b06b/" class="mx-2"><i
-                                    class="fa fa-linkedin fa-2x"></i></a>
-                            <a href="https://twitter.com/PhD_eminkafkas" class="mx-2"><i
-                                    class="fa fa-twitter fa-2x"></i></a>
-                            <a href="http://www.eminkafkas.com.tr/" class="mx-2"><i
-                                    class="fa fa-chrome fa-2x"></i></a>
-
                         </div>
-                    </div>
+                    {% endfor %}
 
-                </div>
+                {% endif %}
+                <!-- end: portfolio item -->
             </div>
-
-        </section>
-        <section id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p><a href="">2021 - Medfitech Eğitim Sağlık Teknoloji Bilişim Spor Yazılım Turizm ve
-                            Danışmanlık</a></p>
-                        <p><small>TÜM HAKLARI SAKLIDIR.</small></p>
-                    </div>
-                </div>
+            <!-- end: Portfolio Items -->
+        </div>
+    </section>
+    <!-- end: PORTFOLIO -->
+    <!-- BLOG -->
+    <section class="content background-grey">
+        <div class="container">
+            <div class="heading-text heading-section">
+                <h2>BLOG</h2>
+                {% for hm in homes %}
+                    <span class="lead">{{ hm.blog_main_title | safe  | default_if_none:"" }}</span>
+                {% endfor %}
             </div>
-        </section>
+            <div id="blog" class="grid-layout post-3-columns m-b-30" data-item="post-item">
+                {% if blogs%}
+                    {% for blg in blogs%}
+                        <!-- Post item-->
+                        <div class="post-item border">
+                            <div class="post-item-wrap">
+                                <div class="post-image">
+                                    <a href="#">
+                                        <img height="200px" src="{{ blg.blog_image.url | default_if_none:'' }}">
+                                    </a>
 
-    </div><!-- /.container-fluid -->
+                                </div>
+                                <div class="post-item-description">
+                                    <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blg.blog_date | default_if_none:'' }}</span>
+                                    <h2><a href="#">{{ blg.blog_title | default_if_none:'' }}
+                                    </a></h2>
+                                    <p>{{ blg.blog_descriptions | default_if_none:'' }}</p>
+                                    <a href="#" class="item-link">Read More <i class="icon-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end: Post item-->
+                    {% endfor %}
 
-    <script type="text/javascript" src="{% static 'home_static/js/main.js' %}"></script>
+                {% endif %}
 
 
-{% endblock body %}
+            </div>
+        </div>
+    </section>
+    <!-- end: BLOG -->
+
+    <!-- TEAM -->
+       <section class="background-grey">
+        <div class="container">
+            {% for hm in  homes %}
+                <div class="heading-text heading-section text-center">
+                    <h2>Ekibimiz</h2>
+                    <span class="lead">{{ hm.team_main_title | default_if_none:'' }}</span>
+                </div>
+            {% endfor %}
+            <div class="row team-members team-members-shadow m-b-40">
+                {% if  teams %}
+                    {% for tm in teams %}
+                        <div class="col-lg-3">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{{ tm.image.url |default_if_none:''}}">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>{{ tm.name_surname |default_if_none:''}}</h3>
+                                    <span>{{ tm.job |default_if_none:''}}</span>
+                                    <p>{{ tm.personal_descriptions |default_if_none:''}} </p>
+                                    <div class="align-center">
+                                        <a class="btn btn-xs btn-slide btn-light" href="{{ tm.facebook |default_if_none:''}}">
+                                            <i class="fab fa-facebook-f"></i>
+                                            <span>Facebook</span>
+                                        </a>
+                                        <a class="btn btn-xs btn-slide btn-light" href="{{ tm.twitter |default_if_none:''}}" data-width="100">
+                                            <i class="fab fa-twitter"></i>
+                                            <span>Twitter</span>
+                                        </a>
+                                        <a class="btn btn-xs btn-slide btn-light" href="{{ tm.instagram |default_if_none:''}}" data-width="118">
+                                            <i class="fab fa-instagram"></i>
+                                            <span>Instagram</span>
+                                        </a>
+                                        <a class="btn btn-xs btn-slide btn-light" href="mailto:{{ tm.mail |default_if_none:''}}" data-width="80">
+                                            <i class="fas fa-envelope-square"></i>
+                                            <span>Mail</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- end: TEAM -->
+    <!-- /corporate table -->
+{% endblock page_content %}
