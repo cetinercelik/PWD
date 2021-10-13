@@ -1,57 +1,267 @@
-{% extends '../base.html' %}
-{% block title %}
-    {% if corporates1 %}
-        {% for crp in corporates1 %}
-            {{ crp.front_title |default_if_none:'' }}
-        {% endfor %}
-    {% endif %}
-{% endblock title %}
+{% extends '../core.html' %}
 {% load static %}
-
-{% block javascript %}
-
-{% endblock javascript %}
-
-{% block page_header %}
-
-{% endblock page_header %}
-
-
-{% block page_content %}
-    <!-- Page title -->
-    {% if  corporates1 %}
-        {% for crp in corporates1 %}
-
-            <div id="slider" class="inspiro-slider dots-creative" data-height-xs="360">
-                <!-- Slide 2 -->
-                <div class="slide kenburns"
-                     style="background-image:url('{{ crp.corporate_image.url | default_if_none:'' }}');">
-                    <div class="bg-overlay"></div>
-                    <div class="container">
-                        <div class="slide-captions text-center text-light">
-                            <!-- Captions -->
+{% block body %}
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-transparent="true" data-fullwidth="true" class="text-dark submenu-light">
+            <div class="header-inner">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="{% url 'home-index' %}">
+                            {#                              {% if homes %}#}
+                            {#                                {% for hms in homes %}#}
+                            {#                                    <img src="{{ hms.corporate_logo.url | default_if_none:'' }}">#}
+                            {#                                {% endfor %}#}
+                            {#                            {% endif %}#}
+                            <span class="logo-default">Medfitech</span>
+                            <span class="logo-dark">Medfitech</span>
 
 
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+                    <!-- Search -->
+                    <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i
+                            class="icon-x"></i></a>
+                        <form class="search-form" action="search-results-page.html" method="get">
+                            <input class="form-control" name="q" type="text" placeholder="Type & Search..."/>
+                            <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
+                        </form>
+                    </div>
+                    <!-- end: search -->
 
-                            <!-- end: Captions -->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    <div id="mainMenu">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    <li><a href="{% url 'home-index' %}">Anasayfa</a></li>
+                                    <li class="dropdown"><a href="#">Kurumsal</a>
+                                        <ul class="dropdown-menu">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Yazılımlarımız</a>
+                                        <ul class="dropdown-menu">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="{% url 'home-about-views' %}">Hakkımızda</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="{% url 'home-contact' %}">İletişim</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Page content -->
+        <!-- Main content -->
+        <!-- Page header area -->
+        {% block page_header %}
+        {% endblock page_header %}
+        <!-- /page header area -->
+        <!-- Content area -->
+
+        {% block page_content %}
+            {% if corporates1 %}
+                {% for crp in corporates1 %}
+                    <section id="page-content" class="sidebar-right">
+                        <div class="">
+                            <div class="row">
+                                <!-- content -->
+                                <div class="">
+                                    <!-- Blog -->
+                                    <div id="blog" class="single-post">
+                                        <!-- Post single item-->
+                                        <div class="post-item">
+                                            <div class="post-item-wrap row">
+                                                <div class="post-image col-lg-5">
+                                                    <a href="{{ crp.corporate_image.url | default_if_none:'' }}">
+                                                        <img alt="" class="my-4"
+                                                             src="{{ crp.corporate_image.url | default_if_none:'' }}">
+                                                    </a>
+                                                </div>
+                                                <div class="post-item-description col-lg-6 mx-4 text-justify">
+                                                    <h2>{{ crp.front_title |default_if_none:'' }}</h2>
+                                                    <hr>
+                                                    <p style="text-align:justify;">{{ crp.corporate_description | safe |default_if_none:'' }}</p>
+                                                    {% if homes %}
+                                                        {% for hm in homes %}
+                                                            <div class="post-meta">
+
+                                                                <div class="post-meta-share">
+                                                                    <a class="btn btn-xs btn-slide btn-facebook"
+                                                                       href="{{ hm.facebook |default_if_none:'' }}">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                        <span>Facebook</span>
+                                                                    </a>
+                                                                    <a class="btn btn-xs btn-slide btn-twitter"
+                                                                       href="{{ hm.twitter |default_if_none:'' }}"
+                                                                       data-width="100">
+                                                                        <i class="fab fa-twitter"></i>
+                                                                        <span>Twitter</span>
+                                                                    </a>
+                                                                    <a class="btn btn-xs btn-slide btn-instagram"
+                                                                       href="{{ hm.instagram |default_if_none:'' }}"
+                                                                       data-width="118">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                        <span>Instagram</span>
+                                                                    </a>
+                                                                    <a class="btn btn-xs btn-slide btn-googleplus"
+                                                                       href="mailto:{{ hm.mail |default_if_none:'' }}"
+                                                                       data-width="80">
+                                                                        <i class="fas fa-envelope-square"></i>
+                                                                        <span>Mail</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <!-- end: Post single item-->
+                                    </div>
+                                </div>
+                                <!-- end: content -->
+                                <!-- Sidebar-->
+
+                                <!-- end: Sidebar-->
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %}
+            {% endif %}
+        {% endblock page_content %}
+        <!-- /content area -->
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="widget">
+
+                                <div class="widget-title container">Medfitech</div>
+                                {#                                <img alt="" src="/static/home_static/images/logo-removebg-preview.png">#}
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Popüler Bağlantılar</div>
+                                        <ul class="list">
+                                            {% if softwares %}
+                                                {% for sft in softwares %}
+                                                    <li>
+                                                        <a href="{% url 'home-software' id=sft.id %}">{{ sft.title | default_if_none:'' }}</a>
+                                                    </li>
+                                                {% endfor %}
+
+                                            {% endif %}
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="widget">
+                                        <div class="widget-title">Hızlı Linkler</div>
+                                        <ul class="list">
+                                            {% if  corporates %}
+                                                {% for cr in  corporates %}
+                                                    <li>
+                                                        <a href="{% url 'home-corporate' id=cr.id %}">{{ cr.front_title | default_if_none:"" }} </a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {#                                <div class="col-lg-4">#}
+                                {#                                    <div class="widget">#}
+                                {#                                        <div class="widget-title">İletişim</div>#}
+                                {#                                        <ul class="list">#}
+                                {#                                            {% if homes %}#}
+                                {#                                                {% for hms in  homes %}#}
+                                {#                                                    <p>#}
+                                {#                                                        <i class="fas fa-phone">{{ hms.central_phone | default_if_none:'' }}</i>#}
+                                {#                                                    </p>#}
+                                {#                                                    <p><i class="fas fa-map-marker-alt"></i>{{ hms.central_address }}</p>#}
+                                {#                                                    <p>#}
+                                {#                                                    <div class="align-center">#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.instagram | default_if_none:'' }}">#}
+                                {#                                                            <i class="fab fa-facebook-f"></i>#}
+                                {#                                                            <span>Facebook</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.twitter | default_if_none:'' }}"#}
+                                {#                                                           data-width="100">#}
+                                {#                                                            <i class="fab fa-twitter"></i>#}
+                                {#                                                            <span>Twitter</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="{{ hms.facebook | default_if_none:'' }}"#}
+                                {#                                                           data-width="118">#}
+                                {#                                                            <i class="fab fa-instagram"></i>#}
+                                {#                                                            <span>Instagram</span>#}
+                                {#                                                        </a>#}
+                                {#                                                        <a class="btn btn-xs btn-slide btn-light" href="mailto:{{ hms.mail | default_if_none:'' }}"#}
+                                {#                                                           data-width="80">#}
+                                {#                                                            <i class="fas fa-envelope-square"></i>#}
+                                {#                                                            <span>Mail</span>#}
+                                {#                                                        </a>#}
+                                {#                                                    </div>#}
+                                {#                                                    </p>#}
+                                {#                                                {% endfor %}#}
+                                {#                                            {% endif %}#}
+                                {##}
+                                {#                                        </ul>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- end: Slide 2 -->
-
             </div>
-            <!-- end: Page title -->
-            <!-- FULL WIDTH PAGE -->
-            <section>
+            <div class="copyright-content">
                 <div class="container">
-                    <h2>{{ crp.front_title | safe |default_if_none:'' }}</h2>
-                    <p>{{ crp.corporate_description | safe |default_if_none:'' }}</p>
+                    <div class="copyright-text text-center">&copy; 2021 Medfitech - Tüm Hakları Saklıdır<a
+                            href="https://www.inspiro-media.com" target="_blank"
+                            rel="noopener"> </a></div>
                 </div>
-            </section>
-        {% endfor %}
-    {% endif %}
+            </div>
+        </footer>
+        <!-- end: Footer -->
+        <!-- /main content -->
+        <!-- /page content -->
+    </div>
+    <a id="scrollTop"><i class="fas fa-chevron-up"></i><i class="fas fa-chevron-up"></i></a>
 
-
-    <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
-    <!-- end: FULL WIDTH PAGE -->
-{% endblock page_content %}
+{% endblock body %}
