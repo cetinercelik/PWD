@@ -1,4 +1,11 @@
 {% extends '../core.html' %}
+{% block title %}
+    {% if  corporates1 %}
+        {% for cr in  corporates1 %}
+                {{ cr.front_title | default_if_none:"" }}
+        {% endfor %}
+    {% endif %}
+{% endblock title %}
 {% load static %}
 {% block body %}
     <div class="body-inner">
@@ -100,7 +107,7 @@
                                             <div class="post-item-wrap row">
                                                 <div class="post-image col-lg-5">
                                                     <a href="{{ crp.corporate_image.url | default_if_none:'' }}">
-                                                        <img alt="" class="my-4"
+                                                        <img alt="" class="my-4 mx-2"
                                                              src="{{ crp.corporate_image.url | default_if_none:'' }}">
                                                     </a>
                                                 </div>
