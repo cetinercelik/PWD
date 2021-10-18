@@ -23,30 +23,41 @@
             <!-- Page title -->
 
             <!-- end: Page title -->
-                    <!-- Inspiro Slider -->
-        <div id="slider" class="inspiro-slider dots-creative" data-height-xs="360">
-            <!-- Slide 2 -->
-            <div class="slide kenburns" style="background-image:url('{{ sft.software_image.url | default_if_none:'' }}');">
-                <div class="bg-overlay"></div>
-                <div class="container">
-                    <div class="slide-captions text-center text-light">
-                        <!-- Captions -->
-                        <h2>{{ sft.title | default_if_none:'' }}</h2>
-                        <span class="strong"><a href="{{ sft.link | default_if_none:'' }}"><i class="fab fa-chrome"></i> Sitemizi Ziyaret Edin...</a></span>
+            <!-- Inspiro Slider -->
+            <div id="slider" class="inspiro-slider dots-creative" data-height-xs="360">
+                <!-- Slide 2 -->
+                <div class="slide kenburns"
+                     style="background-image:url('{{ sft.software_image.url | default_if_none:'' }}');">
+                    <div class="bg-overlay"></div>
+                    <div class="container">
+                        <div class="slide-captions text-center text-light">
+                            <!-- Captions -->
+                            <h2>{{ sft.title | default_if_none:'' }}</h2>
+                            <span class="strong"><a href="{{ sft.link | default_if_none:'' }}"><i
+                                    class="fab fa-chrome"></i> Sitemizi Ziyaret Edin...</a></span>
 
-                        <!-- end: Captions -->
+                            <!-- end: Captions -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- end: Slide 2 -->
+                <!-- end: Slide 2 -->
 
-        </div>
-        <!--end: Inspiro Slider -->
+            </div>
+            <!--end: Inspiro Slider -->
             <!-- FULL WIDTH PAGE -->
             <section>
                 <div class="container">
-                    <h2>{{ sft.title | default_if_none:'' }}</h2>
-                    <p>{{ sft.description |safe | default_if_none:'' }}</p>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="heading-text heading-section">
+                                <h2>{{ sft.title | default_if_none:'' }}</h2>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <span style="text-align:justify;">{{ sft.description |safe | default_if_none:'' }}</span>
+                        </div>
+                    </div>
                 </div>
             </section>
         {% endfor %}
