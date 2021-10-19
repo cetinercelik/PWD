@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="row">
-                                <div class="col-lg-12">{{ abs.about_descriptions | safe | default_if_none:'' }}
+                                <div class="col-lg-12" style="text-align:justify;">{{ abs.about_descriptions | safe | default_if_none:'' }}
                                 </div>
 
 
@@ -76,7 +76,7 @@
                         <div class="col-lg-3">
                             <div class="team-member">
                                 <div class="team-image">
-                                    <img src="{{ tm.image.url |default_if_none:''}}">
+                                    <img class="mx-2 my-4" src="{{ tm.image.url |default_if_none:''}}">
                                 </div>
                                 <div class="team-desc">
                                     <h3>{{ tm.name_surname |default_if_none:''}}</h3>
@@ -84,8 +84,8 @@
                                     <p>{{ tm.personal_descriptions |default_if_none:''}} </p>
                                     <div class="align-center">
                                         <a class="btn btn-xs btn-slide btn-light" href="{{ tm.facebook |default_if_none:''}}">
-                                            <i class="fab fa-facebook-f"></i>
-                                            <span>Facebook</span>
+                                            <i class="fab fa-linkedin"></i>
+                                            <span>Linkedin</span>
                                         </a>
                                         <a class="btn btn-xs btn-slide btn-light" href="{{ tm.twitter |default_if_none:''}}" data-width="100">
                                             <i class="fab fa-twitter"></i>
@@ -96,7 +96,7 @@
                                             <span>Instagram</span>
                                         </a>
                                         <a class="btn btn-xs btn-slide btn-light" href="mailto:{{ tm.mail |default_if_none:''}}" data-width="80">
-                                            <i class="icon-mail"></i>
+                                            <i class="fas fa-envelope-square"></i>
                                             <span>Mail</span>
                                         </a>
                                     </div>
