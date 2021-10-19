@@ -114,7 +114,7 @@
                                                 <div class="post-item-description col-lg-6 mx-4 text-justify">
                                                     <h2>{{ crp.front_title |default_if_none:'' }}</h2>
                                                     <hr>
-                                                    <p style="text-align:justify;">{{ crp.corporate_description | safe |default_if_none:'' }}</p>
+                                                    <span style="text-align:justify;">{{ crp.corporate_description | safe |default_if_none:'' }}</span>
                                                     {% if homes %}
                                                         {% for hm in homes %}
                                                             <div class="post-meta">
