@@ -37,7 +37,7 @@ class contentInput(models.Model):
     branch_local_link = models.TextField(verbose_name='Şube Ofis Konum Linki', null=True, blank=True)
     instagram = models.CharField(verbose_name='Kurum Instagram Link', max_length=100, blank=True, null=True)
     twitter = models.CharField(verbose_name='Kurum Twitter Link', max_length=100, blank=True, null=True)
-    facebook = models.CharField(verbose_name=' Kurum Facebook Link', max_length=100, blank=True, null=True)
+    facebook = models.CharField(verbose_name=' Kurum Linkedin Link', max_length=100, blank=True, null=True)
     mail = models.CharField(verbose_name='Kurum Mail Address', max_length=100, blank=True, null=True)
 
     # def delete(self, using=None, keep_parents=False):
@@ -71,7 +71,7 @@ class Team(models.Model):
                                              null=True)
     instagram = models.CharField(verbose_name='Instagram Link', max_length=100, blank=True, null=True)
     twitter = models.CharField(verbose_name='Twitter Link', max_length=100, blank=True, null=True)
-    facebook = models.CharField(verbose_name='Facebook Link', max_length=100, blank=True, null=True)
+    facebook = models.CharField(verbose_name='Linkedin Link', max_length=100, blank=True, null=True)
     mail = models.CharField(verbose_name='Mail Address', max_length=100, blank=True, null=True)
     image = StdImageField(upload_to='home_page/upload_image/team_image', max_length=255,
                           verbose_name='Slider Resimleri',
